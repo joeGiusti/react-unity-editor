@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/react-unity-editor/static/css/main.073c9b0a.css",
-    "main.js": "/react-unity-editor/static/js/main.e6f05408.js",
+    "main.js": "/react-unity-editor/static/js/main.6ed5d590.js",
     "static/js/787.534faa22.chunk.js": "/react-unity-editor/static/js/787.534faa22.chunk.js",
     "static/media/logo.svg": "/react-unity-editor/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/react-unity-editor/index.html",
     "main.073c9b0a.css.map": "/react-unity-editor/static/css/main.073c9b0a.css.map",
-    "main.e6f05408.js.map": "/react-unity-editor/static/js/main.e6f05408.js.map",
+    "main.6ed5d590.js.map": "/react-unity-editor/static/js/main.6ed5d590.js.map",
     "787.534faa22.chunk.js.map": "/react-unity-editor/static/js/787.534faa22.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.e6f05408.js"
+    "static/js/main.6ed5d590.js"
   ]
 }
