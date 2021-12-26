@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Montserrat&display=swap');
+
+html{
+  overflow: hidden;  
+}
+body {
+  margin: 0;
+  font-family: Montserrat,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.sidePanel{
+
+  position: absolute;
+  width: 280px;
+  height: 720px;
+  left: -240px;
+  background-color: rgb(30, 30, 44);
+  border-radius: 5px;
+  box-shadow: 0px 2px 12px rgb(1, 0, 10);
+  transition:  500ms;
+  padding-top: 20px;
+  box-sizing: border-box;
+}
+.sidePanel:hover{
+  left:-20px;
+}
+.right{  
+  left: auto;
+  right: -260px;
+}
+.right:hover{
+  left: auto;
+  right: -20px;  
+}
+.sidePanelArrow{
+  height: 100%;
+  width: 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+}
+.unityWindow{
+  border-radius: 5px;
+  height: 595px;
+  width: 959px;
+  box-shadow: 0 0 22px purple;
+}
+.infoDiv{
+  height: 60px;
+  width: 80%;
+  margin: 20px;
+}
+.panelText{
+  font-size: 16px;
+}
+.sideButton{
+  background-color: rgb(255, 224, 51);
+  height: 50px;
+  width: 160px;
+  border-radius: 5px;
+  margin-top: 45px;
+  color: rgb(30, 30, 44);
+  font-size: 20px;
+  font-weight: bold;
+  border: 0;
+  display:  inline-block;
+  align-items: center;  
+  justify-content: center;  
+}
+.sideButton:hover{
+  box-shadow: 0px 0px 12px gold;
+  background-color: rgb(255, 217, 0);
+  color: black;
+}
+.button{
+  background-color: rgb(255, 224, 51);
+  height: 50px;
+  width: 160px;
+  border-radius: 5px;
+  margin-top: 15px;
+  color: rgb(30, 30, 44);
+  font-size: 20px;
+  font-weight: bold;
+  border: 0;  
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  float: left;
+}
+.button:hover{
+  box-shadow: 0px 0px 12px gold;
+  background-color: rgb(255, 217, 0);
+  color: black;
+}
+.loadAssetWindow{
+  height: 200px;
+  width: 600px;
+  border:  1px solid black;
+  border-radius: 5px;
+  background-color: rgb(30, 30, 44);
+  position: absolute;
+  top: 30%;  
+  padding:20px
+}
+.closeButton{
+  height: 30px;
+  width: 30px;
+  background-color: rgb(253, 189, 189);
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top:5px;
+  right: 5px;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+}
+.closeButton:hover{
+  background-color: rgb(253, 123, 123);
+  color: white;
+}
+.input{  
+  height: 40px;
+  width: 160px;
+  border-radius: 5px;
+  outline: none;
+  border:none;
+  padding: 8px;
+  box-sizing: border-box;
+  font-size: 16px;
+  float: left;
+  margin:25px;
+  margin-top: 20px;
+}
+.buttonHolder{
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+}
+.buttonLabel{
+  margin: 25px 25px 0 25px;
+  width: 140px;
+  font-size: 20px;
+}
+.menuTitle{
+  font-size: 32px;
+}
