@@ -15,13 +15,22 @@ const unityContext = new UnityContext({
 function App() {
   
   const [loadingAsset, setloadingAsset] = useState(false)
-  
+  const [file, setFile] = useState(null)
+
+  function saveFile(file){
+    setFile(file)
+  }
   function addAsset() {
     unityContext.send("Assets", "AddAsset");    
   }
   function addAssetWithName() {
     console.log(document.getElementById("newAssetNameInput").value)
     unityContext.send("Assets", "AddAssetWithName", document.getElementById("newAssetNameInput").value);        
+  }
+  function addAssetWithData() {
+    var name = document.getElementById("newAssetNameInput").value
+    var url = URL.createObjectURL(file) //     document.getElementById("newAssetNameInput").value
+    unityContext.send("Assets", "LoadAsset", name+"@"+url);        
   }
   function fileChosen(){
     console.log("file was chosen")
@@ -84,9 +93,9 @@ function App() {
         </SidePanel>
         {loadingAsset && 
           <LoadAssetWindow 
-            closeWindow={closeLoadAssetWindow}  
-            newAssetFunction1={addAsset} 
-            newAssetFunction={addAssetWithName}            
+            closeWindow={closeLoadAssetWindow}              
+            newAssetFunction={addAssetWithData}   
+            saveFileFunction= {saveFile}         
           >
           </LoadAssetWindow>}
       </header>

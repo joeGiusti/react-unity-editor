@@ -2,8 +2,14 @@ import React from 'react'
 
 function LoadAssetWindow(props) {
     function fileSelected(event){
-        console.log("image added")        
+        
+        // Get the file
         var file = event.target.files[0]
+
+        // Save the file into app state
+        props.saveFileFunction(file);
+        
+        // Set the name input from the file name
         document.getElementById("newAssetNameInput").value = file.name
     }
     return (
@@ -26,7 +32,7 @@ function LoadAssetWindow(props) {
                 <div>                    
                     <input type="file" id='objInput' style={{display:"none"}} onChange={fileSelected}></input>
                     <label htmlFor="objInput" className='button'>Load OBJ</label>
-                    <input className='input' id='newAssetNameInput'></input>                    
+                    <input className='input' id='newAssetNameInput' autocomplete="off"></input>                    
                     <button className='button' onClick={props.newAssetFunction}>Import</button>                    
                 </div>
             </div>
