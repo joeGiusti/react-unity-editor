@@ -1,16 +1,17 @@
 {
   "files": {
-    "main.css": "/react-unity-editor/static/css/main.7235e987.css",
-    "main.js": "/react-unity-editor/static/js/main.aff6ef0a.js",
+    "main.css": "/react-unity-editor/static/css/main.ef6fe824.css",
+    "main.js": "/react-unity-editor/static/js/main.68ef8ff1.js",
     "static/js/787.534faa22.chunk.js": "/react-unity-editor/static/js/787.534faa22.chunk.js",
+    "static/media/objImage.png": "/react-unity-editor/static/media/objImage.4e81546a0e3f5a4a8d26.png",
     "static/media/logo.svg": "/react-unity-editor/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/react-unity-editor/index.html",
-    "main.7235e987.css.map": "/react-unity-editor/static/css/main.7235e987.css.map",
-    "main.aff6ef0a.js.map": "/react-unity-editor/static/js/main.aff6ef0a.js.map",
+    "main.ef6fe824.css.map": "/react-unity-editor/static/css/main.ef6fe824.css.map",
+    "main.68ef8ff1.js.map": "/react-unity-editor/static/js/main.68ef8ff1.js.map",
     "787.534faa22.chunk.js.map": "/react-unity-editor/static/js/787.534faa22.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7235e987.css",
-    "static/js/main.aff6ef0a.js"
+    "static/css/main.ef6fe824.css",
+    "static/js/main.68ef8ff1.js"
   ]
 }

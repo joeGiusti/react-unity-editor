@@ -22,7 +22,7 @@ function LoadAssetWindow(props) {
                     1: Load
                 </div>
                 <div className='buttonLabel'>
-                    2: Name
+                    2: Verify
                 </div>
                 <div className='buttonLabel'>
                     3: Import
@@ -32,7 +32,7 @@ function LoadAssetWindow(props) {
                 <div>                    
                     <input type="file" id='objInput' style={{display:"none"}} onChange={fileSelected}></input>
                     <label htmlFor="objInput" className='button'>Load OBJ</label>
-                    <input className='input' id='newAssetNameInput' autocomplete="off"></input>                    
+                    <input className='input' id='newAssetNameInput' autoComplete="off"></input>                    
                     <button className='button' onClick={props.newAssetFunction}>Import</button>                    
                 </div>
             </div>

@@ -123,6 +123,10 @@ code {
   border: none;
   border-radius: 3px;
   font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 .closeButton:hover{
   background-color: rgb(253, 123, 123);
@@ -153,4 +157,46 @@ code {
 }
 .menuTitle{
   font-size: 32px;
+}
+.viewSavedWindow{
+  height: 80%;
+  width: 800px;
+  border:  1px solid black;
+  border-radius: 5px;
+  background-color: rgb(30, 30, 44);
+  position: absolute;
+  top: 8%;  
+  padding:20px;
+
+}
+.savedAssetTiles{  
+  width: 100%;  
+}
+.objAssetTile{
+  height: 120px;
+  width: 120px;  
+  margin: 10px;
+  font-size: 16px;
+  padding-top: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+}
+.objAssetTile img{
+ height: 80px;
+ width: 80px;
+}
+.objAssetTile:hover{
+  box-shadow: 0px 0px 12px gold;
+  background-color: rgb(255, 217, 0);
+  font-weight: bold;
+  color: black;
+}
+.objAssetIcon{
+
+}
+.menuTitleDiv{
+  font-size: 32px;
+  height: 60px;
+  margin: 20px;
 }
