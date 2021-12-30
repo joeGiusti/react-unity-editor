@@ -58,31 +58,28 @@ function App() {
   // Call a Unity function that adds an asset button with data
   function addAssetWithData() {
     
-    // Get the input values
     var name = document.getElementById("newAssetNameInput").value
     name = name.split('.')[0]
     var localURL = URL.createObjectURL(file) //     document.getElementById("newAssetNameInput").value
-    
-    // Call the unity function
-    unityContext.send("Assets", "LoadAsset", name+"@"+localURL);        
+
+    // Load the asset into the editor
+    loadIntoWebGL(name, localURL)
 
     // Save the asset to database
     SaveAssetToDatabase(name, file)        
 
-    // Show feedback "Asset " + name + "Imported"
-
-
+  }
+  function loadIntoWebGL(name, localURL){    
+    // Call the unity function
+    unityContext.send("Assets", "LoadAsset", name+"@"+localURL);   
   }
   // Loads an asset from the previously saved window
   function loadSavedAsset(name, url){
     
-    console.log("load saved asset "+name)
-
-    // Download file from url
-
-    // Then get local url and call loadAssetWithData    
+    // This should work if CORS is enabled with the storage bin
+    loadIntoWebGL(name, url)
     
-    // Display uer feedback message
+    console.log("load saved asset "+name+" from "+url)          
 
   }
 
@@ -116,28 +113,32 @@ function App() {
     })    
   }
 
+  var abc
   // Loads the saved assets from the database
   function loadSavedAssets(){
-    var assetArray = []
-    onValue(dbRef(db, "objs"), snapshot=>{
-      snapshot.forEach(obj => {
-        assetArray.push({name:obj.key, url:obj.value})
-      });
+    // Load the asset data from the database
+    onValue(dbRef(db, "objs"), snapshot=>{    
+      // This must be declaired in the onValue call, otherwise it will save like state
+      var newAssetArray = []
+      console.log(" Updating Values::::")
+      snapshot.forEach(obj => {                
+        newAssetArray.push({name:obj.key, url:obj.val()})                
+      });      
+      setsavedAssets(newAssetArray)    
     })
-    setsavedAssets(assetArray)
-    //setsavedAssets([{name:"array name", url:"url one"}, {name:"array name two", url:"url two"}])
   }
-  
   
   // View functions
   function openLoadAssetWindow(){
     setloadingAsset(true)
+    setviewingSaved(false)
   }
   function closeLoadAssetWindow(){
     setloadingAsset(false)
   }
   function openViewSavedWindow(){
     setviewingSaved(true)
+    setloadingAsset(false)
   }
   function closeViewSavedWindow(){
     setviewingSaved(false)
