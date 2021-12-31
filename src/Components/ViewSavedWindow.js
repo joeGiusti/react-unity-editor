@@ -14,7 +14,7 @@ function ViewSavedWindow(props) {
                 {           
                     props.savedAssets != null &&                                                  
                     props.savedAssets.map(asset=>(                            
-                        <ObjAssetTile key={"savedAsset"+i++} onClick={()=>props.loadSavedAssetFunction(asset.name, asset.url)} name={asset.name}></ObjAssetTile>
+                        <ObjAssetTile key={"savedAsset"+i++} onClick={()=>props.loadSavedAssetFunction(asset.name, asset.objUrl, asset.textureUrl)} name={asset.name}></ObjAssetTile>
                     ))
                 }
             </div>

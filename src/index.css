@@ -104,6 +104,7 @@ code {
   display: flex;
   justify-content: center;
   float: left;
+  margin: 15px;
 }
 .button:hover{
   box-shadow: 0px 0px 12px gold;
@@ -163,6 +164,11 @@ code {
   margin: 25px 25px 0 25px;
   width: 140px;
   font-size: 20px;
+}
+.fileNameLabel{
+  margin: 0px 25px 0 25px;
+  width: 140px;
+  font-size: 14px;
 }
 .menuTitle{
   font-size: 32px;

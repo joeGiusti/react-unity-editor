@@ -28,7 +28,8 @@ function App() {
   }, [])
 
   // File state
-  const [file, setFile] = useState(null)  
+  const [objFile, setObjFile] = useState(null)  
+  const [textureFile, setTextureFile] = useState(null)  
 
   // Saved assets
   const [savedAssets, setsavedAssets] = useState(null)  
@@ -50,36 +51,42 @@ function App() {
   var db = getDatabase(app)
   var storage = getStorage(app)
 
-  // Put a file into state (called from load asset window component)
-  function saveFile(file){
-    setFile(file)
+  // Put files into state (called from load asset window component)
+  function saveObjFile(file){
+    setObjFile(file)
+  }
+  function saveTextureFile(file){
+    setTextureFile(file)
   }
 
   // Call a Unity function that adds an asset button with data
   function addAssetWithData() {
     
-    var name = document.getElementById("newAssetNameInput").value
-    name = name.split('.')[0]
-    var localURL = URL.createObjectURL(file) //     document.getElementById("newAssetNameInput").value
+    //var name = document.getElementById("newAssetNameInput").value
+    //name = name.split('.')[0]
+    var name = objFile.name.split('.')[0]
+    var localObjURL = URL.createObjectURL(objFile)
+    var localTextureURL = URL.createObjectURL(textureFile)
 
     // Load the asset into the editor
-    loadIntoWebGL(name, localURL)
+    loadIntoWebGL(name, localObjURL, localTextureURL)
+    //loadIntoWebGL(name, localObjURL, localTextureURL)
 
     // Save the asset to database
-    SaveAssetToDatabase(name, file)        
-
+    SaveAssetToDatabase(name, objFile, textureFile)        
+    
   }
-  function loadIntoWebGL(name, localURL){    
-    // Call the unity function
-    unityContext.send("Assets", "LoadAsset", name+"@"+localURL);   
+  function loadIntoWebGL(name, localObjURL, localTextureURL){    
+    // Call the unity function    
+    unityContext.send("Assets", "LoadAsset", name+"@"+localObjURL+"@"+localTextureURL);   
   }
   // Loads an asset from the previously saved window
-  function loadSavedAsset(name, url){
+  function loadSavedAsset(name, objUrl, textureURL){
     
-    // This should work if CORS is enabled with the storage bin
-    loadIntoWebGL(name, url)
+    // This work only if CORS is enabled with the storage location
+    loadIntoWebGL(name, objUrl, textureURL)
     
-    console.log("load saved asset "+name+" from "+url)          
+    console.log("load saved asset "+name+" obj from: "+objUrl+" texture from: "+textureURL)          
 
   }
 
@@ -89,40 +96,53 @@ function App() {
     remove(dbRef(db, "objs"))
   }
 
-  function SaveStringToDB(name, urlString){
+  function SaveStringToDB(name, type, urlString){
     // This structure prevents duplicates and invalid urls on file overwrite
-    setDatabaseValue(dbRef(db, "objs/"+name), urlString)   
+    setDatabaseValue(dbRef(db, "assets/"+name+"/"+type), urlString)   
   }
   
   // Puts the file in storage, then the name and download URL into a database
-  function SaveAssetToDatabase(name, file){
+  function SaveAssetToDatabase(name, objFile, textureFile){
     
     // Place to store the file (saving under name prevents duplicates in the demo)
-    var storageRef = ref(storage, "objFiles/"+name)
+    var storageRefObj = ref(storage, "objFiles/"+name)
+    var storageRefTexture = ref(storage, "textureFiles/"+name)
     
-    // Upload it then save the name and download url into the database
-    uploadBytes(storageRef, file).then(uploadSnapshot => {
+    // Upload obj then save the name and download url into the database
+    uploadBytes(storageRefObj, objFile).then(uploadSnapshot => {
       
       // Show confirmation in console
       console.log("uploaded "+name+" to storage")      
       
       // This is where the file can now be accessed
-      getDownloadURL(storageRef).then(downloadURL => {
-        SaveStringToDB(name, downloadURL)
+      getDownloadURL(storageRefObj).then(downloadURL => {
+        SaveStringToDB(name, "obj",downloadURL)
       })
-    })    
+    }) 
+    
+    // Upload texture then save the name and download url into the database
+    uploadBytes(storageRefTexture, textureFile).then(uploadSnapshot => {
+      
+      // Show confirmation in console
+      console.log("uploaded "+name+" to storage")      
+      
+      // This is where the file can now be accessed
+      getDownloadURL(storageRefTexture).then(downloadURL => {
+        SaveStringToDB(name, "texture", downloadURL)
+      })
+    }) 
   }
 
   var abc
   // Loads the saved assets from the database
   function loadSavedAssets(){
     // Load the asset data from the database
-    onValue(dbRef(db, "objs"), snapshot=>{    
+    onValue(dbRef(db, "assets"), snapshot=>{    
       // This must be declaired in the onValue call, otherwise it will save like state
-      var newAssetArray = []
-      console.log(" Updating Values::::")
-      snapshot.forEach(obj => {                
-        newAssetArray.push({name:obj.key, url:obj.val()})                
+      var newAssetArray = []      
+      snapshot.forEach(asset => {                
+        newAssetArray.push({name:asset.key, objUrl:asset.child("obj").val(), textureUrl:asset.child("texture").val()})                
+        console.log("pushed "+asset.key+" obj from: "+asset.child("obj").val()+" texture from: "+asset.child("texture").val())
       });      
       setsavedAssets(newAssetArray)    
     })
@@ -194,7 +214,8 @@ function App() {
           <LoadAssetWindow 
             closeWindow={closeLoadAssetWindow}              
             newAssetFunction={addAssetWithData}   
-            saveFileFunction= {saveFile}         
+            saveObjFileFunction= {saveObjFile}         
+            saveTextureFunction= {saveTextureFile}         
           >
           </LoadAssetWindow>}
         {viewingSaved && <ViewSavedWindow
