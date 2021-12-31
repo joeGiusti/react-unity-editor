@@ -182,11 +182,12 @@ code {
   position: absolute;
   top: 8%;  
   padding:20px;
+  
 }
 .savedAssetTiles{  
   width: 100%;  
   height:  80%;
-  overflow-y: scroll;
+  overflow-y: scroll; 
 }
 .objAssetTile{
   height: 120px;
@@ -197,10 +198,14 @@ code {
   box-sizing: border-box;
   cursor: pointer;
   display: inline-block;
+  vertical-align: top;
 }
 .objAssetTile img{
  height: 80px;
  width: 80px;
+}
+.objAssetTile div{
+  overflow: hidden;  
 }
 .objAssetTile:hover{
   box-shadow: 0px 0px 12px gold;
@@ -208,11 +213,67 @@ code {
   font-weight: bold;
   color: black;
 }
-.objAssetIcon{
-
-}
 .menuTitleDiv{
   font-size: 32px;
   height: 60px;
   margin: 20px;
+}
+.dbObj{
+  height: 180px;
+  width: 100%;
+  border: 2px solid purple;
+  border-radius: 3px;
+  font-size: 12px;
+}
+.dbObj div{
+  margin: 10px;
+  box-sizing: border-box;
+}
+.dbObj input{
+  height: 30px;
+  width: 95%;
+  border: none;
+  outline: none;
+  background-color:  rgb(55, 55, 87);
+  background-image: none;
+  color: white;
+}
+.hiddenButton{
+  height: 40px;
+  width: 100px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px solid rgb(55, 55, 87);
+  border-radius: 5px;  
+  color: rgb(55, 55, 87);
+}
+.smallButton{
+  background-color: rgb(255, 224, 51);
+  height: 30px;
+  width: 120px;
+  border-radius: 5px;  
+  color: rgb(30, 30, 44);
+  font-size: 16px;
+  font-weight: bold;
+  border: 0;  
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  float: left;  
+  margin: 0 10px 0 10px;
+}
+.smallButton:hover{
+  box-shadow: 0px 0px 12px gold;
+  background-color: rgb(255, 217, 0);
+  color: black;
+}
+.dbScroll{  
+  width: 102%;  
+  height:  90%;
+  margin-top: 20px;
+  overflow-y: scroll;
+  overflow-x: hidden; 
+  margin-left: -10px;
 }

@@ -9,6 +9,7 @@ import ViewSavedWindow from './Components/ViewSavedWindow.js'
 import {initializeApp} from 'firebase/app'
 import {getDatabase, set as setDatabaseValue, ref as dbRef, push as dbPush, onValue, remove} from 'firebase/database'
 import {getStorage, uploadBytes, ref, getDownloadURL} from 'firebase/storage'
+import DbEdit from './Components/DbEdit';
 
 // This is for the unity webGL loader
 const unityContext = new UnityContext({
@@ -37,6 +38,7 @@ function App() {
   // View state
   const [loadingAsset, setloadingAsset] = useState(false)
   const [viewingSaved, setviewingSaved] = useState(false)
+  const [editingDB, seteditingDB] = useState(false)
 
   // Firebase init
   var app = initializeApp({
@@ -62,11 +64,21 @@ function App() {
   // Call a Unity function that adds an asset button with data
   function addAssetWithData() {
     
-    //var name = document.getElementById("newAssetNameInput").value
-    //name = name.split('.')[0]
+    if(objFile == null){
+      console.log("load a file first")
+      return false
+    }
+
+    // Get the name
     var name = objFile.name.split('.')[0]
-    var localObjURL = URL.createObjectURL(objFile)
-    var localTextureURL = URL.createObjectURL(textureFile)
+    
+    // Get the local url for the obj file
+    var localObjURL
+    try{ localObjURL = URL.createObjectURL(objFile)}catch{}    
+    
+    // Get the local url for the texture file
+    var localTextureURL
+    try{localTextureURL = URL.createObjectURL(textureFile)}catch{}
 
     // Load the asset into the editor
     loadIntoWebGL(name, localObjURL, localTextureURL)
@@ -75,6 +87,7 @@ function App() {
     // Save the asset to database
     SaveAssetToDatabase(name, objFile, textureFile)        
     
+    return true;
   }
   function loadIntoWebGL(name, localObjURL, localTextureURL){    
     // Call the unity function    
@@ -132,8 +145,7 @@ function App() {
       })
     }) 
   }
-
-  var abc
+  
   // Loads the saved assets from the database
   function loadSavedAssets(){
     // Load the asset data from the database
@@ -142,7 +154,7 @@ function App() {
       var newAssetArray = []      
       snapshot.forEach(asset => {                
         newAssetArray.push({name:asset.key, objUrl:asset.child("obj").val(), textureUrl:asset.child("texture").val()})                
-        console.log("pushed "+asset.key+" obj from: "+asset.child("obj").val()+" texture from: "+asset.child("texture").val())
+        console.log("loaded "+asset.key+" into saved assets")
       });      
       setsavedAssets(newAssetArray)    
     })
@@ -163,6 +175,13 @@ function App() {
   function closeViewSavedWindow(){
     setviewingSaved(false)
   }  
+  function openEditDBWindow(){
+    seteditingDB(true)    
+  }
+  function closeEditDBWindow(){
+    seteditingDB(false)
+  }  
+
 
   // JSX
   return (
@@ -171,6 +190,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" style={{height:"80px"}}/>            
         <Unity unityContext={unityContext} className='unityWindow'></Unity>
         <div className='infoDiv'>See left pannel for controls and dynamic asset loader</div>
+        <button className='hiddenButton' onClick={openEditDBWindow}>Edit DB</button>
         <SidePanel>
           <div>
             Editor controls:
@@ -223,6 +243,13 @@ function App() {
           loadSavedAssetFunction = {loadSavedAsset}
           savedAssets = {savedAssets}
         ></ViewSavedWindow>}
+        {editingDB && 
+          <DbEdit
+            closeFunction={closeEditDBWindow}
+            db={db}
+          >                        
+          </DbEdit>
+        }
       </header>
     </div>
   );

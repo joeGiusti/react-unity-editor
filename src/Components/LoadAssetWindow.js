@@ -24,10 +24,10 @@ function LoadAssetWindow(props) {
         document.getElementById("textureFileName").innerHTML = file.name
     }
     function importAsset(){
-        props.newAssetFunction()
-        console.log("importint asset a")
-        document.getElementById("importedNotification").innerHTML = "Complete"
-        console.log("importint asset b")
+        if(props.newAssetFunction())        
+            document.getElementById("importedNotification").innerHTML = "Complete"      
+        else  
+            document.getElementById("importedNotification").innerHTML = "Error"      
     }
     return (
         <div className='loadAssetWindow'>
